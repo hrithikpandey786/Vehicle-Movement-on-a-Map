@@ -20,7 +20,7 @@ function App() {
 
       </Marker> */}
 
-      <Route start={[25.4358, 81.8463]} end={[25.3176, 82.9739]}/>
+      <Route/>
 
     </MapContainer>
   )

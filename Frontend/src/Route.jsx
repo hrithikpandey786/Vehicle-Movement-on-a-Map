@@ -4,10 +4,13 @@ import L, { marker } from 'leaflet';
 import "leaflet/dist/leaflet.css";
 import "leaflet-routing-machine/dist/leaflet-routing-machine.css";
 import 'leaflet-routing-machine';
+import {data} from "./lib/dummydata.js";
 
-
-export default function Route({start, end}){
+export default function Route(){
+    // console.log(data);
     const map = useMap();
+//     const startMarkerRef = React.useRef(null);
+//   const endMarkerRef = React.useRef(null);
     const [marker, setMarker] = React.useState(null);
     const [polyline, setPolyline] = React.useState(null);
 
@@ -36,8 +39,8 @@ export default function Route({start, end}){
 
         const routingControl = L.Routing.control({
             waypoints: [
-                L.latLng(start[0], start[1]),
-                L.latLng(end[0], end[1])
+                L.latLng(data[0].latitude, data[0].longitude),
+                L.latLng(data[1].latitude, data[1].longitude)
             ],
             // routeWhileDragging: true,
             // show: true,
@@ -67,6 +70,18 @@ export default function Route({start, end}){
             })
         }).addTo(map);
 
+        // if (!startMarkerRef.current) {
+        //     startMarkerRef.current = L.marker(data[0]).addTo(map)
+        //       .bindPopup('Start Point')
+        //       .openPopup();
+        //   }
+      
+        //   if (!endMarkerRef.current) {
+        //     endMarkerRef.current = L.marker(data[1]).addTo(map)
+        //       .bindPopup('End Point')
+        //       .openPopup();
+        //   }
+
         return ()=>{
             if(routingControl){
                 map.removeControl(routingControl);
@@ -75,9 +90,12 @@ export default function Route({start, end}){
             if(polyline){
                 map.removeControl(polyline);
             }
+
+    //         if (startMarkerRef.current) map.removeLayer(startMarkerRef.current);
+    //   if (endMarkerRef.current) map.removeLayer(endMarkerRef.current);
         }
         
-    }, [map, start, end, marker, polyline, taxiIcon]);
+    }, [map, data[0], data[1], marker, polyline, taxiIcon]);
     
     return null
 }
