@@ -1,14 +1,18 @@
 const prisma = require("../lib/prsima-client");
 
 const addCoordinates = async (req, res) =>{
-    const latitude = req.latitude;
-    const longitude = req.longitude;
+    const data = req.body;
+    const latitude = data.latitude;
+    const longitude = data.longitude;
+    const date = data.date;
+    // date = date;
 
     try{
         const newCoordinates = await prisma.vehicleCoordinates.create({
             data:{
                 latitude,
-                longitude
+                longitude,
+                date: new Date(date)
             }
         })
 

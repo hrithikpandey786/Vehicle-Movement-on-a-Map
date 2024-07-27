@@ -5,16 +5,50 @@ import 'leaflet-routing-machine';
 import 'leaflet-routing-machine/dist/leaflet-routing-machine.css';
 import "leaflet/dist/leaflet.css";
 import {data} from "./lib/dummydata.js";
+import axios from "axios";
+
 
 export default function Route() {
   const map = useMap();
   const [marker, setMarker] = React.useState(null);
   const [polyline, setPolyline] = React.useState(null);
+  let prevDateTime = new Date(0);
+  let dateTime = new Date(0);
+  let seconds = 0;
+  let diffInMilliseconds = 0;
 
   const taxiIcon = L.icon({
     iconUrl: "./car.png",
     iconSize: [38, 38]
   });
+
+  const addCoordinates = async (latitude, longitude, dateTime)=>{ 
+    // console.log(dateTime);
+    dateTime = dateTime.toISOString();
+    const isOffset = 1000*60*60*5.5;
+    
+    const newDateTime = new Date(dateTime);  
+    const newDate = new Date(isOffset);
+
+    // console.log(dateTime)
+    
+    const t1 = newDateTime.getTime();
+    const t2 = newDate.getTime();
+    
+    const t = new Date(t1+t2).toISOString();  //Indian Standard Time
+    console.log(t);
+    try{
+          const newCoord = await axios.post("http://localhost:8800/api/add", {
+            longitude: longitude,
+            latitude: latitude,
+            date: t
+        })
+        console.log(newCoord, seconds);
+      }
+     catch(err){
+        console.log(err);
+    }
+  }
 
   React.useEffect(() => {
     if (!map || !data || data.length < 2) return;
@@ -54,6 +88,15 @@ export default function Route() {
             if (marker) {
               marker.setLatLng([coord.lat, coord.lng]);
               marker.getPopup().setContent(`Vehicle is at ${coord.lat.toFixed(4)}, ${coord.lng.toFixed(4)}`);
+              
+              dateTime = new Date();
+              diffInMilliseconds = dateTime-prevDateTime;
+              seconds = diffInMilliseconds/1000;
+              
+              if(seconds>=10){
+                addCoordinates(coord.lat, coord.lng, dateTime);
+                prevDateTime = dateTime;
+              }
             }
 
             if (polyline) {
