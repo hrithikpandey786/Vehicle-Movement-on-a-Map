@@ -5,6 +5,9 @@ import './index.css'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
+    <nav>
+        <h2>Vehicle Movement on Map</h2>
+      </nav>
     <App />
   </React.StrictMode>,
 )
