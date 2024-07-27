@@ -36,7 +36,7 @@ export default function Route() {
     const t2 = newDate.getTime();
     
     const t = new Date(t1+t2).toISOString();  //Indian Standard Time
-    console.log(t);
+    // console.log(t);
     try{
           const newCoord = await axios.post("http://localhost:8800/api/add", {
             longitude: longitude,
