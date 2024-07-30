@@ -8,7 +8,7 @@ import {data} from "./lib/dummydata.js";
 import axios from "axios";
 
 
-export default function Route() {
+export default function Route({start, dest}) {
   const map = useMap();
   const [marker, setMarker] = React.useState(null);
   const [polyline, setPolyline] = React.useState(null);
@@ -18,7 +18,7 @@ export default function Route() {
   let diffInMilliseconds = 0;
 
   const taxiIcon = L.icon({
-    iconUrl: "./car.png",
+    iconUrl: "../public/car.png",
     iconSize: [38, 38]
   });
 
@@ -55,7 +55,7 @@ export default function Route() {
 
     // Initialize marker
     if (!marker) {
-      const newMarker = L.marker([data[0].latitude, data[0].longitude], { icon: taxiIcon })
+      const newMarker = L.marker([51.5072, 0.1276], { icon: taxiIcon })
         .addTo(map)
         .bindPopup("Vehicle Starting Position", { closeOnClick: false, autoClose: false });
       setMarker(newMarker);
@@ -70,8 +70,8 @@ export default function Route() {
     // Set up routing
     const routingControl = L.Routing.control({
       waypoints: [
-        L.latLng(data[0].latitude, data[0].longitude),
-        L.latLng(data[1].latitude, data[1].longitude)
+        L.latLng(start[0], start[1]),
+        L.latLng(dest[0], dest[1])
       ],
       addWaypoints: false,
       routeWhileDragging: false,
