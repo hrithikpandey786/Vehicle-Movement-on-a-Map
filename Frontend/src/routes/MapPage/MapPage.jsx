@@ -4,7 +4,7 @@ import {MapContainer, TileLayer, Marker} from "react-leaflet";
 import "leaflet-routing-machine";
 import 'leaflet-routing-machine/dist/leaflet-routing-machine.css';
 import Header from "../../../components/Header/Header";
-import Route from "../../Route";
+import Route from "../../../components/Router/Route";
 import { useLocation } from "react-router-dom";
 
 function MapPage() {

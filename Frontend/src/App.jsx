@@ -6,7 +6,7 @@ import "leaflet-routing-machine";
 import 'leaflet-routing-machine/dist/leaflet-routing-machine.css';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import HomePage from './routes/HomePage/HomePage';
-import Route from "./Route";
+// import Route from "./Route";
 import MapPage from './routes/MapPage/MapPage';
 
 function App() {

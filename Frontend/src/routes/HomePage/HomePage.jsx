@@ -32,10 +32,14 @@ export default function HomePage(){
         <div className="homepage-container">
             <div className="form-container">
                 <form onSubmit={handleSubmit}>
+                    <div className="input">
                     <label htmlFor="start">Start Location: </label>
                     <input type="text" id="start" name="start"></input>
+                    </div>
+                    <div className="input">
                     <label htmlFor="destination">Destination: </label>
                     <input type="text" id="destination" name="destination"></input>
+                    </div>
                     <button type="submit">Go</button>
                 </form>
             </div>

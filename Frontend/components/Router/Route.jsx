@@ -4,7 +4,7 @@ import L from 'leaflet';
 import 'leaflet-routing-machine';
 import 'leaflet-routing-machine/dist/leaflet-routing-machine.css';
 import "leaflet/dist/leaflet.css";
-import {data} from "./lib/dummydata.js";
+import {data} from "../../src/lib/dummydata";
 import axios from "axios";
 
 
